@@ -14,7 +14,7 @@ public class CustomTabsPlugin: NSObject, FlutterPlugin {
         let instance = CustomTabsPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "launch":
@@ -26,7 +26,7 @@ public class CustomTabsPlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
-    
+
     private func present(withURL url: String, option: [String: Any], result: @escaping FlutterResult) {
         if #available(iOS 9.0, *) {
             if let topViewController = UIWindow.keyWindow?.topViewController() {
@@ -39,6 +39,16 @@ public class CustomTabsPlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
+}
+
+public func application(
+        _ application: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        UIWindow.keyWindow?.topViewController()?.navigationController?.popViewController(animated: true)
+        UIWindow.keyWindow?.topViewController()?.dismiss(animated: true, completion: nil)
+        return true
 }
 
 private extension UIWindow {
