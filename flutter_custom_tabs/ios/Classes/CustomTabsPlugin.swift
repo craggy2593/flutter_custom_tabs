@@ -13,6 +13,7 @@ public class CustomTabsPlugin: NSObject, FlutterPlugin {
         )
         let instance = CustomTabsPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
+        registrar.addApplicationDelegate(instance)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
